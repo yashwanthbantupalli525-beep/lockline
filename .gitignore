@@ -3,6 +3,14 @@ __pycache__/
 *.pyc
 .lockline_demo_key
 storage/
+*.lockline
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
+*.sqlite3-journal
+index.json
 .env
 .env.*
 !.env.example

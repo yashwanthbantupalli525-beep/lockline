@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050816">
+<title>Log in | LOCKLINE</title>
+<style>
+:root{--panel:#0d1630;--blue:#00c8ff;--text:#f7f9ff;--muted:#a7b0c5;--line:rgba(133,170,255,.18)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 80% 0%,#10244a 0,transparent 40%),linear-gradient(180deg,#050816,#080d20 55%,#050816);color:var(--text);font-family:Inter,system-ui,Segoe UI,sans-serif}
+.auth{width:min(440px,100%);border:1px solid var(--line);background:rgba(13,22,48,.88);border-radius:22px;padding:32px;box-shadow:0 20px 65px rgba(0,0,0,.2)}.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:.16em;color:var(--text);text-decoration:none}.mark{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--blue),#a18aff);color:#06101d;font-size:21px}
+h1{font-size:30px;margin:28px 0 8px;letter-spacing:-.04em}.sub{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 22px}.field{display:grid;gap:7px;margin:16px 0}.field label{font-size:13px;color:#cbd5e9}.field input{width:100%;background:#070d20;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px 13px;outline:none}.field input:focus{border-color:var(--blue)}.btn{width:100%;border:0;border-radius:11px;padding:13px 18px;background:linear-gradient(100deg,var(--blue),#9c9cff);color:#04111c;font-weight:800;cursor:pointer;margin-top:8px}.link{color:#9eeaff}.switch{font-size:14px;color:var(--muted);margin:22px 0 0}.messages{display:grid;gap:10px;margin-bottom:18px}.flash{padding:12px 14px;border-radius:10px;font-size:14px;border:1px solid var(--line);background:#0c1831}.flash.success{border-color:rgba(85,239,176,.3);color:#9ff3cf}.flash.error{border-color:rgba(255,120,130,.35);color:#ffb9c0}
+</style>
+</head>
+<body>
+<main class="auth">
+  <a class="brand" href="{{ url_for('login') }}"><span class="mark">⌘</span><span>LOCKLINE</span></a>
+  <h1>Welcome back</h1>
+  <p class="sub">Log in to securely transfer files with your LOCKLINE account.</p>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}<div class="messages">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+  {% endwith %}
+  <form action="{{ url_for('login') }}" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field"><label for="username">Username</label><input id="username" name="username" minlength="3" maxlength="32" autocomplete="username" required></div>
+    <div class="field"><label for="password">Password</label><input id="password" type="password" name="password" maxlength="128" autocomplete="current-password" required></div>
+    <button class="btn" type="submit">Log in</button>
+  </form>
+  <p class="switch">New to LOCKLINE? <a class="link" href="{{ url_for('register') }}">Create an account</a></p>
+</main>
+</body>
+</html>
